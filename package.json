@@ -12,5 +12,10 @@
   "devDependencies": {
     "cypress": "^14.0.1",
     "cypress-xpath": "^2.0.1"
+  },
+  "scripts": {
+    "test": "cypress run",
+    "test:report": "cypress run --reporter mocha-junit-reporter"
   }
+
 }
