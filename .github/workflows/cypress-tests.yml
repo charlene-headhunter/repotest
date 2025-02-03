@@ -3,11 +3,11 @@ name: Run Cypress Tests
 on:
   pull_request:  # Runs Cypress tests on every pull request
     branches:
-      - main  # Change to your branch name if needed
+      - master  # Change to your branch name if needed
 
   push:  # Runs after code is merged into the main branch
     branches:
-      - main
+      - master
 
 jobs:
   cypress-run:
