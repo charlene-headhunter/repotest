@@ -1,0 +1,37 @@
+name: Run Cypress Tests
+
+on:
+  pull_request:  # Runs Cypress tests on every pull request
+    branches:
+      - main  # Change to your branch name if needed
+
+  push:  # Runs after code is merged into the main branch
+    branches:
+      - main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest  # Run on Ubuntu
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Clones your repo into the workflow
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18  # Use the Node.js version your project requires
+
+      - name: Install Dependencies
+        run: npm install  # Installs project dependencies
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome  # Runs Cypress tests in Chrome
+          headless: true  # Runs in headless mode (change to false for debugging)
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-results
+          path: cypress/results/  # Save test results as artifacts
