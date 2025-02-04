@@ -3,7 +3,7 @@ const testData = require("../config/testData.json");
 
 describe("Login Tests", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:8000");
+    cy.visit(`${BASE_URL}`);
   });
 
   it("Displays error message for invalid credentials", () => {
