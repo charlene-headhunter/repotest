@@ -26,8 +26,8 @@ jobs:
       - name: Start Application
         run: npm start &  # Start the server in the background
 
-      - name: Wait for Application to be Ready
-        run: npx wait-on http://localhost:8000  # Wait until the server is running
+#      - name: Wait for Application to be Ready
+#        run: npx wait-on http://localhost:8000  # Wait until the server is running
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
