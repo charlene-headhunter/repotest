@@ -1,5 +1,3 @@
-name: Run Cypress Tests
-
 on:
   pull_request:
     branches:
@@ -25,22 +23,14 @@ jobs:
 
       - name: Start Application
         run: |
-#          ./start.sh > server.log 2>&1 &  # Start the server in the background
-#          sleep 5                         # Short wait to allow process to initialize
+          npm start > server.log 2>&1 &  # Start the server in the background
+          sleep 5                         # Short wait to allow process to initialize
 
-      - name: Debug Running Processes
-        run: ps aux  # Check if the server process is running
-
-#      - name: Check Open Ports
-#        run: sudo lsof -i :8000
-
+      - name: Wait for the Server to be Ready
+        run: npx wait-on http://localhost:8000
 
       - name: Verify Server is Running
-        run: curl --fail http://0.0.0.0:8000 || (echo "Server did not start!" && exit 1)
-
-#      - name: Display Server Logs (if failed)
-#        if: failure()
-#        run: cat server.log
+        run: curl --fail http://localhost:8000 || (echo "Server did not start!" && exit 1)
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
