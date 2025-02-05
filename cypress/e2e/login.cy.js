@@ -1,9 +1,9 @@
-const { BASE_URL } = require("../config/baseUrl");
+//const { baseUrl } = require("../config/baseUrl");
 const testData = require("../config/testData.json");
 
 describe("Login Tests", () => {
   beforeEach(() => {
-    cy.visit(`${BASE_URL}`);
+   cy.visit("/")
   });
 
   it("Displays error message for invalid credentials", () => {
