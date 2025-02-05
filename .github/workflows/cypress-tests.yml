@@ -29,9 +29,8 @@ jobs:
           sleep 20      # Start the server in the background
 
       - name: Verify Server is Running
-        run: |  
-          curl --fail http://localhost:8000 || exit 1  # Check if the server is available
-
+        run: |
+          npx wait-on http://localhost:8000 || exit 1
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
