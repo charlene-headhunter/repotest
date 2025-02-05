@@ -34,8 +34,8 @@ jobs:
       - name: Check Open Ports
         run: netstat -tlnp
 
-      - name: Wait for Server to be Ready
-        run: npx wait-on http://localhost:8000 --timeout 60000  # Wait up to 60s
+#      - name: Wait for Server to be Ready
+#        run: npx wait-on http://localhost:8000 --timeout 60000  # Wait up to 60s
 
       - name: Verify Server is Running
         run: curl --fail http://localhost:8000 || (echo "Server did not start!" && exit 1)
