@@ -25,22 +25,24 @@ jobs:
 
       - name: Start Application
         run: |
-          ./start.sh &  # Start the server in the background
-          sleep 50      # Wait for the server to start
+          ./start.sh > server.log 2>&1 &  # Start the server in the background
+          sleep 5                         # Short wait to allow process to initialize
+
       - name: Debug Running Processes
         run: ps aux  # Check if the server process is running
 
       - name: Check Open Ports
         run: netstat -tlnp
-      - name: Verify Server is Running
-        run: |
-          npm start > server.log 2>&1 &
-          curl --fail http://localhost:8000 || exit 1  # Ensure the server is running
-          
 
-      - name: Display server logs
+      - name: Wait for Server to be Ready
+        run: npx wait-on http://localhost:8000 --timeout 60000  # Wait up to 60s
+
+      - name: Verify Server is Running
+        run: curl --fail http://localhost:8000 || (echo "Server did not start!" && exit 1)
+
+      - name: Display Server Logs (if failed)
+        if: failure()
         run: cat server.log
-#          npx wait-on http://localhost:8000 || exit 1  # Wait for the server to be accessible
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
