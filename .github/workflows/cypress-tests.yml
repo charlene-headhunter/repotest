@@ -31,7 +31,7 @@ jobs:
         run: npm run-script       # Start the server in the background
 
       - name: Wait for Application to be Ready
-        run:  npx cypress run --headed --browser chrome   # Wait until the server is running
+        run: npm run start:test   # Wait until the server is running
 
 
       - name: Run Cypress Tests
