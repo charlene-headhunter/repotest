@@ -3,7 +3,7 @@ const testData = require("../config/testData.json");
 
 describe("Task 2 Tests", () => {
   beforeEach(() => {
-    cy.visit(`${BASE_URL}`);
+     cy.visit("/")
   });
 
   it("Allows a guest to book a tour", () => {

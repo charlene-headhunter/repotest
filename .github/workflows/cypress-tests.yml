@@ -24,10 +24,10 @@ jobs:
         run: npm install
 
       - name: Start Application
-        run: npm run-script       # Start the server in the background
+        run: npm run start &  # Run server in background
 
-#      - name: Wait for Application to be Ready
-#        run: npx wait-on http://localhost:8000  # Wait until the server is running
+      - name: Wait for Application to be Ready
+        run: npx wait-on http://localhost:8000  # Wait until server is fully up
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
