@@ -24,12 +24,12 @@ jobs:
         run: npm install
 
       - name: Start Application
-        run: |
+        run:  npm start &
 #          ./start.sh &  # Start the server in the background
-          npm start &
-          sleep 50      # Wait for the server to start
-      - name: Debug Running Processes
-        run: ps aux  # Check if the server process is running
+
+#          sleep 50      # Wait for the server to start
+#      - name: Debug Running Processes
+#        run: ps aux  # Check if the server process is running
 
 #      - name: Check Open Ports
 #        run: netstat -tlnp
