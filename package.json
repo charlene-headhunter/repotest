@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run",
     "test": "cypress run",
     "test:report": "cypress run --reporter mocha-junit-reporter"
+
   },
   "keywords": [],
   "author": "",
@@ -15,4 +17,5 @@
     "cypress-xpath": "^2.0.1",
     "wait-on": "^8.0.2"
   }
+
 }
