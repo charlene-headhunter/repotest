@@ -32,7 +32,7 @@ jobs:
         run: ps aux  # Check if the server process is running
 
       - name: Check Open Ports
-        run: netstat -tlnp
+        run: sudo lsof -i :8000 -tlnp
 
 #      - name: Wait for Server to be Ready
 #        run: npx wait-on http://localhost:8000 --timeout 60000  # Wait up to 60s
