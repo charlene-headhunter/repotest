@@ -22,11 +22,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-      - name: Install Docker Compose
-        run: sudo apt-get update && sudo apt-get install -y docker-compose
-
-      - name: Start Docker Services
-        run: docker-compose up -d
+#      - name: Install Docker Compose
+#        run: sudo apt-get update && sudo apt-get install -y docker-compose
+#
+#      - name: Start Docker Services
+#        run: docker-compose up -d
       - name: Start Application
         run: npm run-script       # Start the server in the background
 
