@@ -22,7 +22,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-
+      - name: Start Docker Services
+        run: docker-compose up -d
       - name: Start Application
         run: npm run-script       # Start the server in the background
 
