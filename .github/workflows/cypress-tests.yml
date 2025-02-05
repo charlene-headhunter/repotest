@@ -27,7 +27,11 @@ jobs:
         run: |
           ./start.sh &  # Start the server in the background
           sleep 50      # Wait for the server to start
+      - name: Debug Running Processes
+        run: ps aux  # Check if the server process is running
 
+      - name: Check Open Ports
+        run: netstat -tlnp
       - name: Verify Server is Running
         run: |
           curl --fail http://localhost:8000 || exit 1  # Ensure the server is running
