@@ -24,19 +24,22 @@ jobs:
         run: npm install
 
       - name: Start Application
-        run:  npm start &
-#          ./start.sh &  # Start the server in the background
+        run: |
+          ./start.sh &  # Start the server in the background
+          sleep 50      # Wait for the server to start
+      - name: Debug Running Processes
+        run: ps aux  # Check if the server process is running
 
-#          sleep 50      # Wait for the server to start
-#      - name: Debug Running Processes
-#        run: ps aux  # Check if the server process is running
+      - name: Check Open Ports
+        run: netstat -tlnp
+      - name: Verify Server is Running
+        run: |
+          npm start > server.log 2>&1 &
+          curl --fail http://localhost:8000 || exit 1  # Ensure the server is running
+          
 
-#      - name: Check Open Ports
-#        run: netstat -tlnp
-#      - name: Verify Server is Running
-#        run: |
-#          npm start &
-#          curl --fail http://localhost:8000 || exit 1  # Ensure the server is running
+      - name: Display server logs
+        run: cat server.log
 #          npx wait-on http://localhost:8000 || exit 1  # Wait for the server to be accessible
 
       - name: Run Cypress Tests
