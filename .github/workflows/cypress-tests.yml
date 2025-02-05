@@ -34,8 +34,6 @@ jobs:
       - name: Check Open Ports
         run: sudo lsof -i :8000
 
-#      - name: Wait for Server to be Ready
-#        run: npx wait-on http://localhost:8000 --timeout 60000  # Wait up to 60s
 
       - name: Verify Server is Running
         run: curl --fail http://0.0.0.0:8000 || (echo "Server did not start!" && exit 1)
