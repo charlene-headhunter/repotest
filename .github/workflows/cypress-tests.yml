@@ -22,17 +22,16 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-#      - name: Install Docker Compose
-#        run: sudo apt-get update && sudo apt-get install -y docker-compose
-#
-#      - name: Start Docker Services
-#        run: docker-compose up -d
+
       - name: Start Application
-        run: npm run-script       # Start the server in the background
+        run: |
+          chmod +x ./start.sh  # Ensure the script is executable
+          ./start.sh &         # Start the server in the background
+          sleep 20      # Start the server in the background
 
-      - name: Wait for Application to be Ready
-        run: npm run start:test   # Wait until the server is running
-
+      - name: Verify Server is Running
+        run: |  
+          curl --fail http://localhost:8000 || exit 1  # Check if the server is available
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
