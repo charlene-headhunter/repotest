@@ -30,8 +30,7 @@ jobs:
 #        run: npx wait-on http://localhost:8000
 
       - name: Verify Server is Running
-        run: curl --fail http://localhost:8000 || (echo "Server did not start!" && exit 1)
-
+        run: curl --fail http://localhost:8000
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
