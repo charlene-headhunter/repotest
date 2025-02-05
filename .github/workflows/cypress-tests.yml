@@ -25,7 +25,6 @@ jobs:
 
       - name: Start Application
         run: |
-          chmod +x ./start.sh  # Ensure the script is executable
           ./start.sh &         # Start the server in the background
           sleep 20      # Start the server in the background
 
