@@ -27,7 +27,7 @@ jobs:
           sleep 5                         # Short wait to allow process to initialize
 
       - name: Wait for the Server to be Ready
-        run: npx wait-on http://localhost:8000
+#        run: npx wait-on http://localhost:8000
 
       - name: Verify Server is Running
         run: curl --fail http://localhost:8000 || (echo "Server did not start!" && exit 1)
