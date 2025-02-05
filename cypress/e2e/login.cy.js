@@ -1,5 +1,5 @@
 //const { baseUrl } = require("../config/baseUrl");
-const testData = require("../config/testData.json");
+//const testData = require("../config/testData.json");
 
 describe("Login Tests", () => {
   beforeEach(() => {
