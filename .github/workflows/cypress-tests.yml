@@ -21,8 +21,10 @@ jobs:
       - name: Start application server
         run: npm start &
 
-#      - name: Wait for application to be ready
-#        run: npx wait-on http://localhost:8000
+      - name: Wait for application to be ready
+        run: |
+          echo "Waiting for server to be ready..."
+          npx wait-on http://localhost:8000 --timeout 60000
 
       - name: Run Cypress tests
         run: npx cypress run --config baseUrl=http://localhost:8000
