@@ -15,12 +15,22 @@ jobs:
         with:
           node-version: 18
 
+      - name: Cache Cypress binary
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
+
       - name: Install dependencies
         run: npm install
+
       - name: Set up Docker Compose
         run: |
-            sudo apt-get update
-            sudo apt-get install -y docker-compose
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
       - name: Start application server
         run: npm start &
 
@@ -30,13 +40,6 @@ jobs:
 
       - name: Run Cypress tests
         run: npx cypress run --config baseUrl=http://localhost:8000
-      - name: Cache Cypress binary
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-
 
       - name: Upload Cypress test results (optional)
         if: always()
