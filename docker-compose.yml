@@ -12,6 +12,14 @@ services:
       - .:/e2e
     working_dir: /e2e
 
+  booking-app:
+    image: your-app-image
+    container_name: booking-app
+    networks:
+      - booking-challenge_default
+    ports:
+      - "80:80"
+
 networks:
   booking-challenge_default:
     driver: bridge
