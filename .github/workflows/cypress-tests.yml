@@ -23,7 +23,8 @@ jobs:
 
       - name: Start Application
         run: |
-          npm start > server.log 2>&1 &  # Start the server in the background
+          npx cypress run
+          # Start the server in the background
           sleep 5                         # Short wait to allow process to initialize
 
 #      - name: Wait for the Server to be Ready
@@ -35,7 +36,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          headless : true
+
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
