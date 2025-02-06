@@ -24,7 +24,8 @@ jobs:
       - name: Run Cypress tests in Docker
         run: |
           docker build -t cypress-tests .
-          docker run --rm cypress-tests
+          docker-compose up cypress
+
 
       - name: Upload Cypress test results (optional)
         if: always()
