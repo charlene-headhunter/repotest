@@ -3,7 +3,7 @@ FROM cypress/included:13.7.1
 # Install curl
 RUN apt-get update && apt-get install -y curl
 # Set the working directory
-WORKDIR /app
+WORKDIR /e2e
 
 # Copy package.json and install dependencies
 COPY package.json package-lock.json ./
