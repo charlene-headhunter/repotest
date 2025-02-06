@@ -29,10 +29,10 @@ jobs:
           npm start &  # Start the server in the background
           echo "Server starting... (waiting for server to be ready)"
 
-      - name: Wait for server to be ready
-        run: |
-          npx wait-on http://localhost:8000 --timeout 60000 --interval 1000
-          echo "Server is up!"  # Log that server is available
+#      - name: Wait for server to be ready
+#        run: |
+#          npx wait-on http://localhost:8000 --timeout 60000 --interval 1000
+#          echo "Server is up!"  # Log that server is available
 
       - name: Run Cypress tests
         run: npm run test
