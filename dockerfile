@@ -1,6 +1,7 @@
 # Use the official Cypress base image
 FROM cypress/included:13.7.1
-
+# Install curl
+RUN apt-get update && apt-get install -y curl
 # Set the working directory
 WORKDIR /app
 
