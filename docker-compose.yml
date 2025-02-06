@@ -5,21 +5,29 @@ services:
     image: cypress/included:latest
     container_name: cypress-tests
     networks:
-      - booking-challenge_default  # Ensure it's on the same network
+      - booking-challenge_default
     environment:
-      - CYPRESS_baseUrl=http://booking-app:8000
+      - CYPRESS_baseUrl=http://booking-app:80
     volumes:
       - .:/e2e
     working_dir: /e2e
+    depends_on:
+      - booking-app
 
   booking-app:
     image: nginx:alpine
     container_name: booking-app
     networks:
-      - booking-challenge_default  # Ensure it's on the same network
+      - booking-challenge_default
     ports:
-      - "8000:8000"
+      - "8000:80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
 
 networks:
   booking-challenge_default:
-    driver: bridge  # Docker Compose will create this network
+    driver: bridge
