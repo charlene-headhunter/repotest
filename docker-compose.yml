@@ -23,5 +23,5 @@ services:
     volumes:
       - .:/e2e
     working_dir: /e2e
-    entrypoint: [ "sh", "-c", "until curl -s http://booking-app:80; do sleep 2; done && npm run test" ]
+#    entrypoint: [ "sh", "-c", "until curl -s http://booking-app:80; do sleep 2; done && npm run test" ]
     # Removed apt-get install for curl from entrypoint
