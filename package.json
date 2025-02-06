@@ -8,15 +8,13 @@
     "test": "cypress run",
     "start:test": "npm start & npx wait-on http://localhost:8000 && npm run test",
     "test:report": "cypress run --reporter mocha-junit-reporter"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^14.0.1",
+    "cypress": "^14.0.2",
     "cypress-xpath": "^2.0.1",
     "wait-on": "^8.0.2"
   }
-
 }

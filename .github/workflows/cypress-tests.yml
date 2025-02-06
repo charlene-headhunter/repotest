@@ -30,6 +30,13 @@ jobs:
 
       - name: Run Cypress tests
         run: npx cypress run --config baseUrl=http://localhost:8000
+      - name: Cache Cypress binary
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
 
       - name: Upload Cypress test results (optional)
         if: always()
