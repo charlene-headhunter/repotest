@@ -14,4 +14,4 @@ services:
 
 networks:
   booking-challenge_default:
-    external: true
+    driver: bridge
