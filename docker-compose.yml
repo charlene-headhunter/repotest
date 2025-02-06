@@ -22,4 +22,4 @@ services:
 
 networks:
   booking-challenge_default:
-    external: true  # Use an external network if it's already created, or you can remove this line and let Compose create it.
+    driver: bridge  # Docker Compose will create this network
