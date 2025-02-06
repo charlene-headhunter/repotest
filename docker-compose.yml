@@ -1,11 +1,17 @@
+version: '3.8'
+
+networks:
+  test-network:
+    driver: bridge
+
 services:
   booking-app:
     image: nginx:alpine
     container_name: booking-app
+    networks:
+      - web_automation_test-network  # Ensure booking-app is attached to test-network
     ports:
       - "8000:80"
-    networks:
-      - test-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 10s
@@ -17,11 +23,10 @@ services:
     image: cypress/included:latest
     container_name: cypress-tests
     networks:
-      - test-network
+      - web_automation_test-network  # Ensure cypress-tests is attached to test-network
     environment:
       - CYPRESS_baseUrl=http://booking-app:80
     volumes:
       - .:/e2e
     working_dir: /e2e
-#    entrypoint: [ "sh", "-c", "until curl -s http://booking-app:80; do sleep 2; done && npm run test" ]
-    # Removed apt-get install for curl from entrypoint
+    entrypoint: [ "sh", "-c", "until curl -s http://booking-app:80; do sleep 2; done && npm run test" ]
