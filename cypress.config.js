@@ -1,9 +1,9 @@
 const { defineConfig } = require("cypress");
 
-module.exports = {
+module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://host.docker.internal:8000',  // Use host.docker.internal in CI
-    requestTimeout: 20000,
-  },
-};
 
+    baseUrl: 'http://localhost:8000/',
+      requestTimeout: 20000,
+  },
+});
