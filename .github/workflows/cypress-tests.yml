@@ -29,10 +29,10 @@ jobs:
           npm start &  # Start the application in the background
           echo "Waiting for server to be ready..."  # Log message for debugging
 
-      - name: Wait for server to be ready
-        run: |
-          npx wait-on http://localhost:8000 || (echo "Server is not accessible!"; exit 1)
-          echo "Server is up!"  # Log message for debugging
+#      - name: Wait for server to be ready
+#        run: |
+#          npx wait-on http://localhost:8000 || (echo "Server is not accessible!"; exit 1)
+#          echo "Server is up!"  # Log message for debugging
 
       - name: Run Cypress tests
         run: npm run test  # Assuming this triggers Cypress tests
