@@ -1,5 +1,5 @@
-const { BASE_URL } = require("../config/baseUrl");
-const testData = require("../config/testData.json");
+//const { BASE_URL } = require("../config/baseUrl");
+//const testData = require("../config/testData.json");
 
 describe("Task 2 Tests", () => {
   beforeEach(() => {

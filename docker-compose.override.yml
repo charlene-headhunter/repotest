@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  cypress:
+    image: cypress/included:latest
+    container_name: cypress-tests
+    networks:
+      - booking-challenge_default
+    environment:
+      - CYPRESS_baseUrl=http://booking-app:80
+    volumes:
+      - .:/e2e
+    working_dir: /e2e
+
+networks:
+  booking-challenge_default:
+    external: true

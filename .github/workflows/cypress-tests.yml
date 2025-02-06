@@ -1,16 +1,13 @@
-on:
-  pull_request:
-    branches:
-      - master
-  push:
-    branches:
-      - master
+name: Cypress Tests
+
+on: [push, pull_request]  # Run tests on every push and pull request
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -18,27 +15,20 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Start Application
+      - name: Start application server
+        run: npm start &
+
+      - name: Run Cypress tests in Docker
         run: |
-          npx cypress open --config baseUrl=http://localhost:8000
-          
+          docker build -t cypress-tests .
+          docker run --rm cypress-tests
 
-#      - name: Wait for the Server to be Ready
-#        run: npx wait-on http://localhost:8000
-
-#      - name: Verify Server is Running
-#        run: curl --fail http://localhost:8000
-      - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
+      - name: Upload Cypress test results (optional)
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-results
-          path: cypress/results/
+          path: cypress/videos/
