@@ -7,7 +7,7 @@ services:
     networks:
       - booking-challenge_default  # Ensure it's on the same network
     environment:
-      - CYPRESS_baseUrl=http://booking-app:80
+      - CYPRESS_baseUrl=http://booking-app:8000
     volumes:
       - .:/e2e
     working_dir: /e2e
@@ -18,7 +18,7 @@ services:
     networks:
       - booking-challenge_default  # Ensure it's on the same network
     ports:
-      - "80:80"
+      - "8000:8000"
 
 networks:
   booking-challenge_default:
