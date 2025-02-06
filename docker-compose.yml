@@ -1,9 +1,3 @@
-version: '3.8'
-
-networks:
-  test-network:  # Define the network here, do NOT use "external"
-    driver: bridge
-
 services:
   booking-app:
     image: nginx:alpine
@@ -29,4 +23,5 @@ services:
     volumes:
       - .:/e2e
     working_dir: /e2e
-    entrypoint: [ "sh", "-c", "apt-get update && apt-get install -y curl && until curl -s http://booking-app:80; do sleep 2; done && npm run test" ]
+    entrypoint: [ "sh", "-c", "until curl -s http://booking-app:80; do sleep 2; done && npm run test" ]
+    # Removed apt-get install for curl from entrypoint
