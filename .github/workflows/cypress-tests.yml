@@ -13,3 +13,6 @@ jobs:
 
       - name: Start Application and Run Cypress
         run: docker-compose up --exit-code-from cypress
+
+#          - name: Start Application and Run Cypress
+#            run: docker-compose up --exit-code-from cypress
