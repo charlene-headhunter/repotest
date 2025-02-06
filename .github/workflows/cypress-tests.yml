@@ -3,10 +3,10 @@ name: Run Cypress tests
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   cypress-run:
@@ -26,16 +26,20 @@ jobs:
 
       - name: Start application server
         run: |
-          npm start &  # Start the application in the background
-          echo "Waiting for server to be ready..."  # Log message for debugging
+          npm start &  # Start the server in the background
+          echo "Server starting... (waiting for server to be ready)"
 
-#
+      - name: Wait for server to be ready
+        run: |
+          npx wait-on http://localhost:8000 --timeout 60000 --interval 1000
+          echo "Server is up!"  # Log that server is available
+
       - name: Run Cypress tests
-        run: npm run test  # Assuming this triggers Cypress tests
+        run: npm run test
 
-      - name: Upload Cypress test results ()
+      - name: Upload Cypress test results (optional)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-results
-          path: cypress/videos
+          path: cypress/videos/
