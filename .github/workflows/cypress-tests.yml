@@ -1,6 +1,12 @@
-name: Cypress Tests
+name: Run Cypress tests
 
-on: [push, pull_request]  # Run tests on every push and pull request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   cypress-run:
@@ -19,12 +25,17 @@ jobs:
         run: npm install
 
       - name: Start application server
-        run: npm start &
-
-      - name: Run Cypress tests in Docker
         run: |
-          npm start & npx wait-on http://localhost:8000 && npm run test
+          npm start &  # Start the application in the background
+          echo "Waiting for server to be ready..."  # Log message for debugging
 
+      - name: Wait for server to be ready
+        run: |
+          npx wait-on http://localhost:8000 || (echo "Server is not accessible!"; exit 1)
+          echo "Server is up!"  # Log message for debugging
+
+      - name: Run Cypress tests
+        run: npm run test  # Assuming this triggers Cypress tests
 
       - name: Upload Cypress test results (optional)
         if: always()
