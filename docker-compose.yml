@@ -9,7 +9,7 @@ services:
     image: nginx:alpine
     container_name: booking-app
     networks:
-      - web_automation_test-network  # Ensure booking-app is attached to test-network
+      - test-network  # Ensure booking-app is attached to test-network
     ports:
       - "8000:80"
     healthcheck:
@@ -23,7 +23,7 @@ services:
     image: cypress/included:latest
     container_name: cypress-tests
     networks:
-      - web_automation_test-network  # Ensure cypress-tests is attached to test-network
+      - test-network  # Ensure cypress-tests is attached to test-network
     environment:
       - CYPRESS_baseUrl=http://booking-app:80
     volumes:
