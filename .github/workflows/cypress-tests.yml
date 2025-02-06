@@ -37,7 +37,7 @@ jobs:
       - name: Run Cypress tests
         run: npm run test  # Assuming this triggers Cypress tests
 
-      - name: Upload Cypress test results (optional)
+      - name: Upload Cypress test results ()
         if: always()
         uses: actions/upload-artifact@v4
         with:
