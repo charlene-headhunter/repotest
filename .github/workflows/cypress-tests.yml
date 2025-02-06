@@ -23,7 +23,8 @@ jobs:
 
       - name: Start Application
         run: |
-          npm start & && npm run test
+          npm start &
+          npm run test
           
            # Start the server in the background
           sleep 5                         # Short wait to allow process to initialize
