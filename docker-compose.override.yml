@@ -2,20 +2,20 @@ networks:
   test-network:  # ✅ Define the network explicitly
     driver: bridge
 
-services:
+sservices:
   booking-app:
-    image: nginx:alpine
+    build: .
     container_name: booking-app
+    networks:
+      - test-network
     ports:
       - "8000:80"
-    networks:
-      - test-network  # ✅ Use this network instead
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8000" ]
       interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 5s
+      retries: 10  # Increased retries
+      start_period: 60s  # Give the app more time to start
+      timeout: 10s
 
   cypress:
     image: cypress/included:latest
