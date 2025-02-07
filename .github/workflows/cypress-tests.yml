@@ -25,23 +25,36 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-#
-#      - name: Set up Docker Compose
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y docker-compose
-#
-#      - name: Start application server
-#        run: npm start &
 
-#      - name: Run tests with Docker Compose
-#        run: |
-#          docker-compose up --exit-code-from cypress
+      # Start the local application server
+      - name: Start Application Server
+        run: npm start &  # Ensure this runs in the background
 
-      - name: Run Cypress tests
-        run: npx cypress run --config baseUrl=http://localhost:8000
+      # Install Ngrok
+      - name: Install Ngrok
+        run: |
+          curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
+          echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
+          sudo apt update && sudo apt install ngrok
 
-      - name: Upload Cypress test results
+      # Start Ngrok to expose localhost:8000
+      - name: Start Ngrok Tunnel
+        run: |
+          ngrok http 8000 > /dev/null &  # Start Ngrok in the background
+          sleep 5  # Give Ngrok time to initialize
+          echo "Fetching Ngrok public URL..."
+          curl --silent http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' > ngrok_url.txt
+          cat ngrok_url.txt  # Show the generated public URL
+          echo "CYPRESS_BASE_URL=$(cat ngrok_url.txt)" >> $GITHUB_ENV
+
+      # Run Cypress Tests using the Ngrok public URL
+      - name: Run Cypress Tests
+        run: npx cypress run
+        env:
+          CYPRESS_BASE_URL: ${{ env.CYPRESS_BASE_URL }}
+
+      # Upload Cypress test results
+      - name: Upload Cypress Test Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
