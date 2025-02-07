@@ -2,7 +2,7 @@ networks:
   test-network:  # ✅ Define the network explicitly
     driver: bridge
 
-sservices:
+services:
   booking-app:
     build: .
     container_name: booking-app
