@@ -38,6 +38,8 @@ jobs:
 #
 #      - name: Check Running Containers
 #        run: docker ps  # Debugging step to ensure containers are running
+      - name: Debug Running Containers
+        run: docker ps -a
 
       - name: Test Application (Check if it's running)
         run: curl -f http://localhost:8000
