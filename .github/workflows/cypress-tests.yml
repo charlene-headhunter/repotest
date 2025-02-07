@@ -39,8 +39,8 @@ jobs:
             docker-compose up -d  # Start the app in detached mode
             sleep 10  # Wait for the app to start
 
-            - name: Test Application (Check if it's running)
-              run: curl -f http://localhost:8000
+      - name: Test Application (Check if it's running)
+        run: curl -f http://localhost:8000
 
       - name: Upload Cypress test results
         if: always()
