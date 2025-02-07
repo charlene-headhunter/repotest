@@ -6,11 +6,13 @@ networks:
 
 services:
   booking-app:
-    image: nginx:alpine
+    build: .  # Use your own application build instead of nginx:alpine
     container_name: booking-app
+    entrypoint: ["/bin/sh", "-c", "./start.sh && tail -f /dev/null"]  # Run start.sh at container start
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./php-fpm:/var/www/html
+      - .:/app
+    networks:
+      - test-network
     depends_on:
       - booking-php-fpm
     ports:
@@ -21,26 +23,20 @@ services:
     container_name: booking-php-fpm
     volumes:
       - ./php-fpm:/var/www/html
+    networks:
+      - test-network
 
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000"]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 5s
-
-  cypress-tests:  # Updated service name to match Dockerfile
-    build: .  # This ensures Cypress uses your custom Dockerfile
-#    container_name: cypress-tests
+  cypress-tests:
+    build: .  # Cypress container
+    container_name: cypress-tests
     depends_on:
       booking-app:
-        condition: service_healthy  # Ensures Cypress waits for booking-app to be ready
+        condition: service_started  # Ensure booking-app is started first
     networks:
-      - test-network  # Ensure cypress-tests is attached to test-network
+      - test-network
     environment:
       - CYPRESS_baseUrl=http://booking-app:80
     volumes:
       - .:/e2e
     working_dir: /e2e
     command: ["npx", "cypress", "run", "--config", "baseUrl=http://booking-app:80"]
-
