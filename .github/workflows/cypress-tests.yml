@@ -40,13 +40,15 @@ jobs:
 ##        run: docker ps  # Debugging step to ensure containers are running
 #      - name: Debug Running Containers
 #        run: docker ps -a
-      - name: Start and test server
-        run: |
-          npm start &
-          npx wait-on http://localhost:8000
-          curl -v http://localhost:8000
-      
-      
+      - name: Start the server
+        run: npm start &
+
+      - name: Wait for server to be ready
+        run: sleep 10
+
+      - name: Check if server is running
+        run: curl -v http://0.0.0.0:8000/
+
 
       #      - name: Run Cypress Tests
 #        run: docker-compose run cypress-tests  # Runs Cypress inside Docker
