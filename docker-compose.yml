@@ -27,8 +27,8 @@ services:
     networks:
       - test-network
     environment:
-      - CYPRESS_baseUrl=http://booking-app:80/
+      - CYPRESS_baseUrl=http://localhost:8000
     volumes:
       - .:/e2e
     working_dir: /e2e
-    command: ["npx", "cypress", "run", "--config", "baseUrl=http://booking-app:80/"]
+    command: ["npx", "cypress", "run", "--config", "baseUrl=http://localhost:8000"]
