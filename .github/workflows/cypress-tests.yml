@@ -34,9 +34,9 @@ jobs:
       - name: Start application server
         run: npm start &
 
-#      - name: Run tests with Docker Compose
-#        run: |
-#          docker-compose up --exit-code-from cypress
+      - name: Run tests with Docker Compose
+        run: |
+          docker-compose up --exit-code-from cypress
 
       - name: Run Cypress tests
         run: npx cypress run --config baseUrl=http://localhost:8000
