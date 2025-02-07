@@ -1,10 +1,9 @@
 const { defineConfig } = require("cypress");
 
-export default defineConfig({
+module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://booking-app:80', // Use the internal service name
-    requestTimeout: 20000,
-  },
-});
 
+    baseUrl: 'http://localhost:8000/',
+      requestTimeout: 20000,
+  },
 });
