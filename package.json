@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run",
+    "start": "node server.js",
     "test": "cypress run",
     "start:test": "npm start & npx wait-on http://localhost:8000 && npm run test",
     "test:report": "cypress run --reporter mocha-junit-reporter"

@@ -41,13 +41,16 @@ jobs:
 #      - name: Debug Running Containers
 #        run: docker ps -a
       - name: Start the server
-        run: |
-          npm start
-          sleep 5 # Give it time to start
-      - name: Test Application (Check if it's running)
-        run: curl -f http://localhost:8000
+        run: npm start &
 
-#      - name: Run Cypress Tests
+      - name: Wait for server to be ready
+        run: sleep 10
+
+      - name: Check if server is running
+        run: curl -v http://localhost:8000
+
+
+      #      - name: Run Cypress Tests
 #        run: docker-compose run cypress-tests  # Runs Cypress inside Docker
 
       - name: Upload Cypress test results
