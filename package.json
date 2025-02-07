@@ -16,5 +16,8 @@
     "cypress": "^14.0.2",
     "cypress-xpath": "^2.0.1",
     "wait-on": "^8.0.2"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
   }
 }
