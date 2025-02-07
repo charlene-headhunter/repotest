@@ -14,8 +14,5 @@ RUN npm install
 # Copy all project files
 COPY . .
 
-# Debug: Check if curl is installed before running Cypress
-RUN which curl && curl --version
-
 # Run Cypress tests
-CMD ["sh", "-c", "which curl && curl --version && npx cypress run"]
+CMD ["npx", "cypress", "run", "--config", "baseUrl=http://booking-app:80"]
