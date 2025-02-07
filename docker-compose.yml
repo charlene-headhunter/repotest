@@ -19,14 +19,16 @@ services:
       start_period: 30s
       timeout: 5s
 
-  cypress:
-    image: cypress/included:latest
+  cypress-tests:  # Updated service name to match Dockerfile
+    build: .  # This ensures Cypress uses your custom Dockerfile
     container_name: cypress-tests
+    depends_on:
+      booking-app:
+        condition: service_healthy  # Ensures Cypress waits for booking-app to be ready
     networks:
-      - test-network # Ensure cypress-tests is attached to test-network
+      - test-network  # Ensure cypress-tests is attached to test-network
     environment:
       - CYPRESS_baseUrl=http://booking-app:80
     volumes:
       - .:/e2e
     working_dir: /e2e
-#    entrypoint: [ "sh", "-c", "apk add --no-cache curl && until curl -s http://booking-app:80; do sleep 2; done && npm run test" ]
