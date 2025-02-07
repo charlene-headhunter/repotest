@@ -26,32 +26,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-#      - name: Set up Docker Compose
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y docker-compose
-#
-#      - name: Build and Start the Application
-#        run: |
-#          docker-compose up -d  # Start the app in detached mode
-#          sleep 15  # Wait for the app to start
-#
-##      - name: Check Running Containers
-##        run: docker ps  # Debugging step to ensure containers are running
-#      - name: Debug Running Containers
-#        run: docker ps -a
-      - name: Start the server
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Start application server
         run: npm start &
 
-      - name: Wait for server to be ready
-        run: sleep 10
+      - name: Run tests with Docker Compose
+        run: |
+          docker-compose up --exit-code-from cypress
 
-      - name: Check if server is running
-        run: curl -v http://0.0.0.0:8000/
-
-
-      #      - name: Run Cypress Tests
-#        run: docker-compose run cypress-tests  # Runs Cypress inside Docker
+      - name: Run Cypress tests
+        run: npx cypress run --config baseUrl=http://localhost:8000
 
       - name: Upload Cypress test results
         if: always()
