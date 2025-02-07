@@ -6,8 +6,8 @@ networks:
 
 services:
   booking-app:
-    image: nginx:alpine
-    container_name: booking-app
+#    image: nginx:alpine
+#    container_name: booking-app
     networks:
       - test-network  # Ensure booking-app is attached to test-network
     ports:
@@ -28,9 +28,9 @@ services:
     networks:
       - test-network  # Ensure cypress-tests is attached to test-network
     environment:
-      - CYPRESS_baseUrl=http://booking-app:80
+      - CYPRESS_baseUrl=http://localhost:8000/
     volumes:
       - .:/e2e
     working_dir: /e2e
-    command: ["npx", "cypress", "run", "--config", "baseUrl=http://booking-app:80"]
+    command: ["npx", "cypress", "run", "--config", "baseUrl=http://localhost:8000/"]
 
