@@ -6,7 +6,7 @@ networks:
 
 services:
   booking-app:
-    build: .  # Ensures your application is built from the local Dockerfile
+    image: nginx:alpine
     container_name: booking-app
     networks:
       - test-network  # Ensure booking-app is attached to test-network
@@ -19,16 +19,18 @@ services:
       start_period: 30s
       timeout: 5s
 
-  cypress-tests:
-    build: .  # Ensures Cypress uses your custom Dockerfile
+  cypress-tests:  # Updated service name to match Dockerfile
+    build: .  # This ensures Cypress uses your custom Dockerfile
+#    container_name: cypress-tests
     depends_on:
       booking-app:
         condition: service_healthy  # Ensures Cypress waits for booking-app to be ready
     networks:
-      - test-network
+      - test-network  # Ensure cypress-tests is attached to test-network
     environment:
-      - CYPRESS_baseUrl=http://localhost:8000
+      - CYPRESS_baseUrl=http://booking-app:80
     volumes:
       - .:/e2e
     working_dir: /e2e
-    command: ["npx", "cypress", "run", "--config", "baseUrl=http://localhost:8000"]
+    command: ["npx", "cypress", "run", "--config", "baseUrl=http://booking-app:80"]
+
