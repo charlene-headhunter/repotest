@@ -1,35 +1,35 @@
-version: '3.8'
-
-networks:
-  test-network:
-    driver: bridge
-
-services:
-  booking-app:
-    image: nginx:alpine
-    container_name: booking-app
-    networks:
-      - test-network
-    ports:
-      - "8000:80"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000"]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 5s
-
-  cypress-tests:
-    build: .  # Ensure you have a Dockerfile for Cypress
-    container_name: cypress-tests
-    depends_on:
-      booking-app:
-        condition: service_healthy  # Ensures Cypress waits for booking-app to be healthy
-    networks:
-      - test-network
-    environment:
-      - CYPRESS_baseUrl=http://booking-app:80
-    volumes:
-      - .:/e2e
-    working_dir: /e2e
-    command: ["npx", "cypress", "run", "--config", "baseUrl=http://booking-app:80"]
+#version: '3.8'
+#
+#networks:
+#  test-network:
+#    driver: bridge
+#
+#services:
+#  booking-app:
+#    image: nginx:alpine
+#    container_name: booking-app
+#    networks:
+#      - test-network
+#    ports:
+#      - "8000:80"
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+#      interval: 10s
+#      retries: 5
+#      start_period: 30s
+#      timeout: 5s
+#
+#  cypress-tests:
+#    build: .  # Ensure you have a Dockerfile for Cypress
+#    container_name: cypress-tests
+#    depends_on:
+#      booking-app:
+#        condition: service_healthy  # Ensures Cypress waits for booking-app to be healthy
+#    networks:
+#      - test-network
+#    environment:
+#      - CYPRESS_baseUrl=http://booking-app:80
+#    volumes:
+#      - .:/e2e
+#    working_dir: /e2e
+#    command: ["npx", "cypress", "run", "--config", "baseUrl=http://booking-app:80"]

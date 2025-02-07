@@ -40,6 +40,7 @@ jobs:
       # Start Ngrok to expose localhost:8000
       - name: Start Ngrok Tunnel
         run: |
+          ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
           ngrok http 8000 > /dev/null &  # Start Ngrok in the background
           sleep 5  # Give Ngrok time to initialize
           echo "Fetching Ngrok public URL..."

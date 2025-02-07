@@ -1,30 +1,30 @@
-networks:
-  test-network:  # ✅ Define the network explicitly
-    driver: bridge
-
-services:
-  booking-app:
-    build: .
-    container_name: booking-app
-    networks:
-      - test-network
-    ports:
-      - "8000:80"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8000" ]
-      interval: 10s
-      retries: 10  # Increased retries
-      start_period: 60s  # Give the app more time to start
-      timeout: 10s
-
-  cypress:
-    image: cypress/included:latest
-    container_name: cypress-tests
-    networks:
-      - test-network  # ✅ Ensure Cypress is on the same network
-    environment:
-      - CYPRESS_baseUrl=http://booking-app:80
-    volumes:
-      - .:/e2e
-    working_dir: /e2e
-    entrypoint: ["sh", "-c", "until curl -s http://localhost:8000; do sleep 2; done && npm run test"]
+#networks:
+#  test-network:  # ✅ Define the network explicitly
+#    driver: bridge
+#
+#services:
+#  booking-app:
+#    build: .
+#    container_name: booking-app
+#    networks:
+#      - test-network
+#    ports:
+#      - "8000:80"
+#    healthcheck:
+#      test: [ "CMD", "curl", "-f", "http://localhost:8000" ]
+#      interval: 10s
+#      retries: 10  # Increased retries
+#      start_period: 60s  # Give the app more time to start
+#      timeout: 10s
+#
+#  cypress:
+#    image: cypress/included:latest
+#    container_name: cypress-tests
+#    networks:
+#      - test-network  # ✅ Ensure Cypress is on the same network
+#    environment:
+#      - CYPRESS_baseUrl=http://booking-app:80
+#    volumes:
+#      - .:/e2e
+#    working_dir: /e2e
+#    entrypoint: ["sh", "-c", "until curl -s http://localhost:8000; do sleep 2; done && npm run test"]
