@@ -21,7 +21,7 @@ services:
 
   cypress-tests:  # Updated service name to match Dockerfile
     build: .  # This ensures Cypress uses your custom Dockerfile
-#    container_name: cypress-tests
+    container_name: cypress-tests
     depends_on:
       booking-app:
         condition: service_healthy  # Ensures Cypress waits for booking-app to be ready
