@@ -18,7 +18,7 @@ services:
 
   booking-php-fpm:
     image: booking-challenge_php-fpm
-    container_name: booking-php-fpm
+#    container_name: booking-php-fpm
     volumes:
       - ./php-fpm:/var/www/html
     networks:
